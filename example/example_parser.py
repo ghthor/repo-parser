@@ -16,15 +16,16 @@ import typer
 from livereload import Server
 
 from repo_parser import Processor, Resource, get_resources, scan
+from repo_parser.filesystem import File
 
 
-def _process_markdown(file_contents: str):
-    metadata, _ = frontmatter.parse(file_contents)
+def _process_markdown(file: File):
+    metadata, _ = frontmatter.parse(file.content or "")
 
     filetype = metadata.get("type", "file")
     metadata.pop("type", None)  # remove "type" from the metadata
 
-    return filetype, metadata, file_contents
+    return filetype, metadata, file
 
 
 def _augment_metadata(resource: Resource, extra_metadata: dict):

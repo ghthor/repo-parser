@@ -179,7 +179,7 @@ def _get_resources(
     for file in dir.files:
         for processor in processors:
             if processor.pattern.search(file.name):
-                filetype, metadata, _ = processor.process(file.content or "")
+                filetype, metadata, _ = processor.process(file)
                 if filetype != "file":
                     if dir_resource is None:
                         dir_resource = Resource(
@@ -204,7 +204,7 @@ def _get_resources(
     for file in dir.files:
         for processor in processors:
             if processor.pattern.search(file.name):
-                _, metadata, _ = processor.process(file.content or "")
+                _, metadata, _ = processor.process(file)
                 # Collect file path for batch querying
                 if file_paths is not None:
                     file_paths.append(file.src_path)

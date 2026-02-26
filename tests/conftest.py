@@ -11,13 +11,13 @@ from repo_parser.filesystem import Dir, File, Processor
 
 @pytest.fixture
 def default_processors():
-    def _process_markdown(file_contents: str):
-        metadata, _ = frontmatter.parse(file_contents)
+    def _process_markdown(file: File):
+        metadata, _ = frontmatter.parse(file.content or "")
 
         filetype = metadata.get("type", "file")
         metadata.pop("type", None)  # remove "type" from the metadata
 
-        return filetype, metadata, file_contents
+        return filetype, metadata, file
 
     return [
         Processor(re.compile(r"\.md$"), _process_markdown, True),
