@@ -15,7 +15,9 @@ def test_get_resources(simple_filesystem, default_processors):
     processors = [
         *default_processors,
         Processor(
-            re.compile(r"Makefile"), lambda content: ("file", {}, content), False
+            re.compile(r"Makefile"),
+            lambda file: ("file", {}, file),
+            False,
         ),
     ]
     dir, repo = simple_filesystem
@@ -47,7 +49,9 @@ def test_directory_last_modified_from_children(simple_filesystem, default_proces
     processors = [
         *default_processors,
         Processor(
-            re.compile(r"Makefile"), lambda content: ("file", {}, content), False
+            re.compile(r"Makefile"),
+            lambda file: ("file", {}, file),
+            False,
         ),
     ]
     dir, repo = simple_filesystem
@@ -67,7 +71,9 @@ def test_repo_last_modified_from_all_descendants(simple_filesystem, default_proc
     processors = [
         *default_processors,
         Processor(
-            re.compile(r"Makefile"), lambda content: ("file", {}, content), False
+            re.compile(r"Makefile"),
+            lambda file: ("file", {}, file),
+            False,
         ),
     ]
     dir, repo = simple_filesystem
